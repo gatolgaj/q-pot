@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bunq MCP Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Font-Awesome (no SRI to avoid hash mismatch issues) -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        referrerpolicy="no-referrer" />
+  <style>
+    /* ───── Global ───── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(120deg, #ff3cac, #784ba0, #2b86c5);
+      background-size: 400% 400%;
+      animation: bgShift 15s ease infinite;
+      display: grid;
+      grid-template-columns: 64px 1fr 300px;
+      gap: 1rem;
+      padding: 1rem;
+      overflow: hidden;
+    }
+    @keyframes bgShift {
+      0% {background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    .panel {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      padding: 1rem;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ───── Sidebar ───── */
+    .sidebar {
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .sidebar .icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .sidebar .icon:hover {
+      background: rgba(255,255,255,0.35);
+    }
+    .sidebar .icon img {
+      display: none;
+    }
+
+    /* ───── Main ───── */
+    .main {
+      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;          /* keep chat-window inside and scrollable */
+    }
+    .summary {
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .summary h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .summary .emoji { font-size: 1.5rem; }
+
+    .advisor, .tips {
+      background: rgba(0,0,0,0.3);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      flex-shrink: 0;
+    }
+    .advisor p {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    .tips button {
+      margin-top: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 2rem;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 0.95rem;
+    }
+    .tips button:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .chat-window {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      margin-top: 1rem;
+    }
+
+    /* ───── Chat bubbles (dark theme) ───── */
+    .message {
+      display: flex;
+      margin: 0.75rem 0;
+      align-items: flex-end;
+    }
+    .avatar {
+      font-size: 1.5rem;
+      width: 2rem;
+      text-align: center;
+    }
+    .message.user { justify-content: flex-end; }
+    .message.assistant { justify-content: flex-start; }
+    .bubble {
+      max-width: 60%;
+      padding: 0.75rem 1rem;
+      border-radius: 1rem;
+      position: relative;
+      line-height: 1.45;
+      word-wrap: break-word;
+      color: #fff;
+      background: rgba(0,0,0,0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .message.user .bubble {
+      background: rgba(58,135,255,0.8);
+      border-bottom-right-radius: 0.25rem;
+    }
+    .message.assistant .bubble {
+      background: rgba(40,40,40,0.8);
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    /* ───── Input bar ───── */
+    .input-bar {
+      flex-shrink: 0;
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .input-bar input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 2rem;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .input-bar input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+    .input-bar button {
+      padding: 0 1.5rem;
+      border: none;
+      border-radius: 2rem;
+      background: #3a87ff;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .input-bar button:hover {
+      background: #316fd1;
+    }
+
+    /* ───── Quick Actions ───── */
+    .quick-actions {
+      gap: 1rem;
+    }
+    .quick-actions h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .action-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 1rem;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .action-card:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .action-card img {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 0.5rem;
+    }
+    .action-card span {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    /* Font-Awesome icons inside sidebar & cards */
+    .sidebar .icon i,
+    .action-card i {
+      font-size: 20px;          /* explicit so the circle encloses it neatly */
+      line-height: 20px;
+      color: #ffffff;           /* white icon on coloured circle */
+    }
+
+    /* Ensure the icon is centred vertically as well */
+    .sidebar .icon i {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* ───── conversation-starter chips ───── */
+    .suggestions-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .suggestion-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 9999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .suggestion-btn:hover {
+      background: rgba(255,255,255,0.28);
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="panel sidebar">
+    <div class="icon"><i class="fa-solid fa-house"></i></div>
+    <div class="icon"><i class="fa-solid fa-piggy-bank"></i></div>
+    <div class="icon"><i class="fa-solid fa-bullseye"></i></div>
+    <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+    <div class="icon"><i class="fa-solid fa-user"></i></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="panel main">
+    <div class="summary">
+      <h1>You saved €420 more than last month <span class="emoji">🎉</span></h1>
+    </div>
+    <div class="advisor">
+      <p><strong>Advisor</strong><br>
+      Great job! Your expenses decreased by 15% compared to March. Keep it up!</p>
+    </div>
+    <div class="tips">
+      <p>Here are some tips to further boost your savings:</p>
+      <button>Auto-increase savings</button>
+    </div>
+
+    <!-- Chat window -->
+    <div class="chat-window" id="chat-container"></div>
+
+    <!-- Input form (unchanged IDs/structure) -->
+    <form id="input-form" class="input-bar">
+      <input id="msg" type="text" autocomplete="off" placeholder="Type your message…" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="panel quick-actions">
+    <h2>Quick Actions</h2>
+    <div class="actions-grid">
+      <div class="action-card">
+        <i class="fa-solid fa-wallet"></i>
+        <span>Set a Budget</span>
+      </div>
+      <div class="action-card">
+        <i class="fa-solid fa-bullseye"></i>
+        <span>Create Goal</span>
+      </div>
+      <div class="action-card">
+        <i class="fa-solid fa-rocket"></i>
+        <span>Start Go!</span>
+      </div>
+      <div class="action-card">
+        <i class="fa-solid fa-lightbulb"></i>
+        <span>View Insights</span>
+      </div>
+    </div>
+
+    <!-- conversation starters -->
+    <h3 style="margin-top:1.25rem;font-size:1.1rem;font-weight:500;">
+      Conversation Starters
+    </h3>
+    <div id="suggestions-grid" class="suggestions-grid"></div>
+  </div>
+
+  <!-- Markdown & highlighting libs -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/lib/highlight.js"></script>
+  <!-- Your original chat logic (unchanged) -->
+  <script>
+    const chatContainer = document.getElementById("chat-container");
+    const form = document.getElementById("input-form");
+    const input = document.getElementById("msg");
+
+    let history = [
+      { role: "system", content: `
+You are **FinCoach**, a seasoned independent financial advisor for upper-middle-class clients in the Netherlands.
+
+You can securely access Bunq data and the following MCP tools  
+\`get_accounts\`, \`get_account_balance\`, \`get_transactions\`,  
+\`make_payment\`, \`request_payment\`,  
+\`get_cards\`, \`block_card\`, \`unblock_card\`,  
+\`personal_information\`, \`income_expenses\`, \`assets_liabilities\`,  
+\`financial_goals\`, \`risk_profile\`, \`tax_situation\`,  
+\`legal_estate_planning\`, \`preferences_values\`,  
+\`financial_statement_last_5_years\`, and **\`search\`** for web queries.
+
+Guidelines  
+1. Begin with a short personalised greeting.  
+2. Ask clarifying questions before advising if data is missing.  
+3. Call tools proactively, include only useful output.  
+4. Think step-by-step, provide actionable recommendations referencing numbers.  
+5. Respond in **Markdown** (use headings, lists, tables).  
+6. For external facts, call \`search\` first and cite sources.  
+7. Conclude with a concise summary & friendly next steps.  
+
+_Compliance_: Advice is educational, not formal investment recommendation.
+` }
+    ];
+
+    function renderMessage(role, content) {
+      const wrapper = document.createElement("div");
+      wrapper.className = `message ${role}`;
+      const avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = role === "assistant" ? "👨‍💼" : "🧑";
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+
+      let parsed = null;
+      try { parsed = JSON.parse(content); } catch {}
+      if (parsed) {
+        const pre = document.createElement("pre");
+        pre.textContent = JSON.stringify(parsed, null, 2);
+        bubble.appendChild(pre);
+      } else {
+        bubble.innerHTML = marked.parse(content);
+        bubble.querySelectorAll("pre code").forEach(block => hljs.highlightElement(block));
+      }
+
+      if (role === "assistant") {
+        wrapper.appendChild(avatar);
+        wrapper.appendChild(bubble);
+      } else {
+        wrapper.appendChild(bubble);
+        wrapper.appendChild(avatar);
+      }
+
+      chatContainer.appendChild(wrapper);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    async function initGreeting() {
+      let greeting;
+      try {
+        const rsp = await fetch("/user_info");
+        const user = await rsp.json();
+        const name = user.name ?? user.public_nick_name ?? "there";
+        greeting = `👋 Hello ${name}! I'm your financial advisor. How can I help you today?`;
+        history.push({
+          role: "system",
+          content: `The current user information is:\n\n\`\`\`json\n${JSON.stringify(user,null,2)}\n\`\`\``
+        });
+      } catch {
+        greeting = "👋 Hello! I'm your financial advisor. How can I help you today?";
+      }
+      renderMessage("assistant", greeting);
+      history.push({ role: "assistant", content: greeting });
+    }
+
+    /* ── Intention-based quick prompts ─────────────────────────── */
+    const suggestions = [
+      "Show my monthly cash-flow summary",
+      "Help me budget for a two-week trip to Japan",
+      "Plan financing for buying a Porsche Macan",
+      "How can I repay my mortgage faster?",
+      "Evaluate my risk profile and suggest investments",
+      "Compare different energy providers to save money",
+      "Show all my accounts and their balances",
+      "What were my top 5 expenses last month?",
+      "Give me a summary of my financial goals",
+      "Show my risk profile",
+      "Search latest mortgage interest rates in NL",
+      "Download my 5-year financial statement",
+
+    ];
+
+    /* render the chips inside the quick-actions panel */
+    function populateSuggestionsGrid() {
+      const grid = document.getElementById("suggestions-grid");
+      suggestions.forEach(text => {
+        const btn = document.createElement("button");
+        btn.className = "suggestion-btn";
+        btn.textContent = text;
+        btn.onclick = () => {
+          input.value = text;
+          form.requestSubmit();
+        };
+        grid.appendChild(btn);
+      });
+    }
+
+    (async () => {
+      await initGreeting();
+      populateSuggestionsGrid();
+    })();
+
+    form.addEventListener("submit", async ev => {
+      ev.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      renderMessage("user", text);
+      history.push({ role: "user", content: text });
+      input.value = "";
+      try {
+        const res = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: history })
+        });
+        const data = await res.json();
+        history = data.messages;
+        const assistantMsgs = history.filter(m => m.role === "assistant");
+        const last = assistantMsgs[assistantMsgs.length - 1];
+        if (last) renderMessage("assistant", last.content);
+      } catch (err) {
+        renderMessage("assistant", "⚠️ Error: " + err.message);
+      }
+    });
+  </script>
+</body>
+</html>

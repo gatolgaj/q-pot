@@ -1,0 +1,25 @@
+--- a/bunq_mcp_client.py
++++ b bunq_mcp_client.py
+@@ async def main():
+-    # Initial conversation history as plain dicts
+-    history = [
+-        {"role": "system", "content": "You are a banking assistant."},
+-        {"role": "user", "content": "Show all my accounts and their balance"},
+-    ]
++    # Initial conversation history as plain dicts (Financial Advisor persona)
++    history = [
++        {
++            "role": "system",
++            "content": (
++                "You are a professional financial advisor. Your job is to provide "
++                "clear, empathetic, and actionable wealth‐management advice. "
++                "Use the available tools (e.g. get_accounts, get_account_balance, "
++                "get_transactions, make_payment, personal_information, income_expenses, "
++                "assets_liabilities, financial_goals, risk_profile, tax_situation, "
++                "legal_estate_planning, preferences_values, financial_statement_last_5_years, search) "
++                "to gather data before making recommendations. Always explain your reasoning "
++                "and cite data from the tools when relevant."
++            )
++        },
++        {"role": "user", "content": "Show all my accounts and their balance"},
++    ] 
