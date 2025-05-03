@@ -1,4 +1,5 @@
 import os
+import sys
 from dataclasses import dataclass, field
 from typing import Optional, List, Dict
 
@@ -12,7 +13,7 @@ class LLMClientConfig:
     Configuration for the OpenAI client.
     Fields map directly to AsyncOpenAI init parameters.
     """
-    api_key: str = "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"
+    api_key: str = "<OpenAPI Key>"
     base_url: Optional[str] = None
     timeout: Optional[float] = None
 
@@ -41,7 +42,10 @@ class MCPServerConfig:
     Fields must match mcp.client.stdio.StdioServerParameters.
     """
     enabled: bool = True
-    command: str = os.getenv("MCP_SERVER_COMMAND", "/Users/ssvk/.pyenv/shims/uv run /Users/ssvk/Documents/GitHub/bunqhack/bunq_mcp_server.py")
+    command: str = os.getenv(
+        "MCP_SERVER_COMMAND",
+        f"{sys.executable} bunq_mcp_server.py",    # <-- portable default
+    )
     args: List[str] = field(default_factory=list)
     env: Dict[str, str] = field(default_factory=dict)
     cwd: Optional[str] = None

@@ -10,6 +10,7 @@ from typing import Any, Dict, List, Union
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from bunq_mcp_client import MCPClient          # <-- existing code is reused
@@ -23,6 +24,8 @@ app = FastAPI(title="Bunq-MCP Chat")
 client = MCPClient()
 _client_lock = asyncio.Lock()                  # serialise access to the MCP session
 
+# Serve index.html, CSS, JS, … from the same directory
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
 @app.on_event("startup")
 async def _startup() -> None:
