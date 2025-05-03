@@ -1,206 +1,200 @@
+<a id="readme-top"></a>
+
 <!--
-  Q-pot – README / landing page
-  A polished, responsive HTML template that works both on GitHub (as
-  inline HTML inside a .md file) and as a standalone page.
+*** Thanks for checking out Q-pot! If you have improvements, please open an issue or PR.
+*** Don't forget to give the project a ⭐ if you like it!
 -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Q-pot | AI-powered Financial Coach for Bunq</title>
 
-  <!-- Bootstrap 5 – quick professional styling -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet" integrity="sha384-IQsoLXl9+P+9Y+e5sGoRxFN2FAE1N/jd1GqZAq5AxZuUAvxQyiZAh+STThzJf6Ee"
-        crossorigin="anonymous">
+<!-- PROJECT SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![License][license-shield]][license-url]
 
-  <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+<br />
+<div align="center">
+  <a href="https://github.com/your-org/q-pot">
+    <img src="images/logo.png" alt="Q-pot Logo" width="80" height="80">
+  </a>
 
-  <style>
-    body   { font-family: "Inter", sans-serif; }
-    h1,h2  { font-weight: 800; }
-    code   { background:#f3f5f7;padding:.15rem .35rem;border-radius:.25rem }
-    .hero  { background:linear-gradient(120deg,#ff3cac,#784ba0,#2b86c5);
-             color:#fff; }
-    .hero a{ color:#fff;text-decoration:underline }
-    .feature-icon { font-size:1.75rem;color:#3b82f6 }
-    footer { font-size:.875rem;color:#6c757d }
-    /* dark mode tweak for GitHub */
-    @media (prefers-color-scheme: dark) {
-      body { background:#0d1117;color:#c9d1d9 }
-      .hero { background:#1f6feb }
-    }
-  </style>
-</head>
-<body>
+  <h3 align="center">Q-pot (FinCoach)</h3>
 
-<!-- ­­­­­­­­­­­­­­­­­­­­­­­ Hero ­­­­­­­­­­­­­­­­­­­­­­­ -->
-<section class="hero text-center py-5">
-  <div class="container">
-    <h1 class="display-4 mb-3">Q-pot 💶🤖</h1>
-    <p class="lead mb-4">
-      AI-powered <strong>financial coach</strong> for Bunq users.<br>
-      Analyse spending, set goals, optimise investments &mdash; all in one chat.
-    </p>
-    <a href="#quickstart" class="btn btn-light btn-lg fw-semibold">
-      🚀 Get Started
-    </a>
-  </div>
-</section>
+  <p align="center">
+    AI-powered financial coach for Bunq users
+    <br />
+    <a href="#quick-start"><strong>Get Started »</strong></a>
+    <br /><br />
+    <a href="https://github.com/your-org/q-pot">View Demo</a>
+    &middot;
+    <a href="https://github.com/your-org/q-pot/issues/new">Report Bug</a>
+    &middot;
+    <a href="https://github.com/your-org/q-pot/issues/new">Request Feature</a>
+  </p>
+</div>
 
-<!-- ­­­­­­­­­­­­­­­­­­­­­­­ Features ­­­­­­­­­­­­­­­­­­­­­­­ -->
-<section class="py-5">
-  <div class="container">
-    <h2 class="mb-4 text-center">Key Features</h2>
-    <div class="row g-4">
-      <div class="col-md-6 col-lg-4">
-        <div class="d-flex align-items-start">
-          <div class="me-3 feature-icon">🧠</div>
-          <div>
-            <h5>LLM-driven Advice</h5>
-            <p class="mb-0">OpenAI GPT-4o generates clear, actionable
-               recommendations with Markdown formatting.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="d-flex align-items-start">
-          <div class="me-3 feature-icon">🔌</div>
-          <div>
-            <h5>MCP Tool-Calls</h5>
-            <p class="mb-0">Bridges Chat GPT ↔ Bunq-style tools
-               (<code>get_accounts</code>, <code>search</code>, etc.).</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="d-flex align-items-start">
-          <div class="me-3 feature-icon">🌐</div>
-          <div>
-            <h5>DuckDuckGo Search</h5>
-            <p class="mb-0">Pulls external facts to support advice, tolerant
-               of strict TLS proxies.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="d-flex align-items-start">
-          <div class="me-3 feature-icon">💸</div>
-          <div>
-            <h5>Mortgage &amp; Investments</h5>
-            <p class="mb-0">Mock tools for mortgage transactions and portfolio
-               performance&mdash;ready for real data.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="d-flex align-items-start">
-          <div class="me-3 feature-icon">⚡</div>
-          <div>
-            <h5>Single Docker Image</h5>
-            <p class="mb-0">UI, FastAPI gateway, MCP client &amp; server all in
-               one slim container.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="d-flex align-items-start">
-          <div class="me-3 feature-icon">☁️</div>
-          <div>
-            <h5>Cloud-Ready</h5>
-            <p class="mb-0">Deploy to Cloud Run, Render, Fly.io or any container host in minutes.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#built-with">Built With</a></li>
+    <li><a href="#quick-start">Quick Start</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-<!-- ­­­­­­­­­­­­­­­­­­­­­­­ Architecture Summary ­­­­­­­­­­­­­­­­­­­­­­­ -->
-<section class="py-5 bg-light border-top">
-  <div class="container">
-    <h2 class="mb-4 text-center">Architecture at a Glance</h2>
-    <div class="table-responsive">
-      <table class="table align-middle">
-        <thead class="table-light">
-          <tr><th scope="col">Layer / File</th><th scope="col">Tech / Purpose</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>chat_web/index.html</code></td><td>Static SPA (vanilla JS), Font-Awesome icons, scrollable chat</td></tr>
-          <tr><td><code>chat_web/app.py</code></td><td>FastAPI server – serves UI + REST endpoints <code>/chat</code>, <code>/user_info</code></td></tr>
-          <tr><td><code>bunq_mcp_client.py</code></td><td>Bridges OpenAI Chat ↔ MCP servers, manages tool-calls</td></tr>
-          <tr><td><code>bunq_mcp_server.py</code></td><td>Mock Bunq tools, web-search, mortgage and portfolio data</td></tr>
-          <tr><td><code>Dockerfile</code></td><td>Slim Python 3.12 image; runs <code>uvicorn chat_web.app:app</code> (port 8000)</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+---
 
-<!-- ­­­­­­­­­­­­­­­­­­­­­­­ Quick Start ­­­­­­­­­­­­­­­­­­­­­­­ -->
-<section class="py-5" id="quickstart">
-  <div class="container">
-    <h2 class="mb-4 text-center">Quick Start</h2>
-    <pre class="bg-dark text-white p-3 rounded">
-git clone https://github.com/your-org/q-pot.git
-cd q-pot
+## About The Project
 
-cp .env.example .env     # add your OPENAI_API_KEY
-python3 -m venv venv && . venv/bin/activate
-pip install -r requirements.txt
+Q-pot (FinCoach) is an AI-powered chat application that acts as your
+personal financial advisor. It connects OpenAI’s GPT-4o with mock Bunq-style
+tools (accounts, transactions, mortgage, investments, etc.) via an MCP
+server—plus a DuckDuckGo search tool for external facts. The UI is a
+simple scrollable chat (vanilla JS + FontAwesome), and everything ships
+inside one Docker image you can deploy anywhere.
 
-uvicorn chat_web.app:app --reload
-# → open http://localhost:8000
-    </pre>
-  </div>
-</section>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ­­­­­­­­­­­­­­­­­­­­­­­ Docker ­­­­­­­­­­­­­­­­­­­­­­­ -->
-<section class="py-5 bg-light border-top">
-  <div class="container">
-    <h2 class="mb-4 text-center">Docker Usage</h2>
-    <pre class="bg-dark text-white p-3 rounded">
-# Build
-docker build -t qpot:latest .
+### Built With
 
-# Run
-docker run -p 8000:8000 \
-  -e OPENAI_API_KEY=sk-... \
-  -e BUNQ_API_KEY=dummy \
-  qpot
-    </pre>
-  </div>
-</section>
+- [FastAPI](https://fastapi.tiangolo.com/) – server & static hosting  
+- [Uvicorn](https://www.uvicorn.org/) – ASGI server  
+- [MCP](https://github.com/neuml/mcp) – multiplexed tool‐calling framework  
+- [OpenAI Python](https://github.com/openai/openai-python) – LLM backend  
+- [DuckDuckGo-Search](https://github.com/deedy5/duckduckgo-search) – web tool  
+- Vanilla JavaScript + [Font Awesome](https://fontawesome.com/) – front-end  
+- Docker – containerization
 
-<!-- ­­­­­­­­­­­­­­­­­­­­­­­ Env Vars ­­­­­­­­­­­­­­­­­­­­­­­ -->
-<section class="py-5">
-  <div class="container">
-    <h2 class="mb-4 text-center">Environment Variables</h2>
-    <div class="table-responsive">
-      <table class="table table-striped align-middle">
-        <thead class="table-light">
-          <tr><th>Variable</th><th>Description</th><th>Required</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><code>OPENAI_API_KEY</code></td><td>Secret key for Chat Completions</td><td>✅</td></tr>
-          <tr><td><code>BUNQ_API_KEY</code></td><td>Real or mock Bunq key (demo uses dummy)</td><td></td></tr>
-          <tr><td><code>BUNQ_ENVIRONMENT</code></td><td><code>PRODUCTION</code> or <code>SANDBOX</code></td><td></td></tr>
-          <tr><td><code>MCP_SERVER_COMMAND</code></td><td>Override path/args for MCP server</td><td></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ­­­­­­­­­­­­­­­­­­­­­­­ Footer ­­­­­­­­­­­­­­­­­­­­­­­ -->
-<footer class="py-4 border-top">
-  <div class="container text-center">
-    <p class="mb-2">MIT License – do what you like, no warranty.</p>
-    <p class="mb-0">© 2025 Q-pot / FinCoach Team</p>
-  </div>
-</footer>
+---
 
-</body>
-</html>
+## Quick Start
+
+### Prerequisites
+
+- Python 3.11+  
+- (Optional) Docker & Docker CLI  
+- A valid OpenAI API key  
+
+### Installation & Running Locally
+
+1. **Clone the repo**
+
+   ```sh
+   git clone https://github.com/your-org/q-pot.git
+   cd q-pot
+   ```
+
+2. **Create & populate your `.env`**
+
+   ```sh
+   cp .env.example .env
+   # then open .env and set OPENAI_API_KEY, BUNQ_API_KEY, etc.
+   ```
+
+3. **Install dependencies**
+
+   ```sh
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+4. **Run the app**
+
+   ```sh
+   uvicorn chat_web.app:app --reload
+   ```
+
+5. **Open** [http://localhost:8000](http://localhost:8000)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## Usage
+
+- Type questions like “Help me budget for Japan” or
+  “Show my investment portfolio performance.”  
+- Use the Quick Actions or Conversation Starters to trigger common prompts.  
+- The assistant will call the right tools (MCP endpoints) under the hood.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## Roadmap
+
+- [x] Mock tools: accounts, transactions, cards  
+- [x] Web-search tool (DuckDuckGo) with TLS-tolerant fallback  
+- [x] Mortgage & investment portfolio mock tools  
+- [ ] Real Bunq API integration  
+- [ ] Authentication & multi-user sessions  
+- [ ] Persistent chat history  
+- [ ] Deploy samples for Render / Fly.io
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## Contributing
+
+1. Fork the Project  
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)  
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)  
+4. Push to the Branch (`git push origin feature/AmazingFeature`)  
+5. Open a Pull Request
+
+Please read our [Contributing Guidelines](CONTRIBUTING.md) if available.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## Contact
+
+Q-pot / FinCoach Team – [support@qpot.ai](mailto:support@qpot.ai)  
+Project Link: [https://github.com/your-org/q-pot](https://github.com/your-org/q-pot)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## Acknowledgments
+
+- [Choose an Open Source License](https://choosealicense.com)  
+- [Img Shields](https://shields.io)  
+- [Font Awesome](https://fontawesome.com)  
+- [Best README Template](https://github.com/othneildrew/Best-README-Template)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[contributors-shield]: https://img.shields.io/github/contributors/your-org/q-pot.svg?style=for-the-badge
+[contributors-url]: https://github.com/your-org/q-pot/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/your-org/q-pot.svg?style=for-the-badge
+[forks-url]: https://github.com/your-org/q-pot/network/members
+[stars-shield]: https://img.shields.io/github/stars/your-org/q-pot.svg?style=for-the-badge
+[stars-url]: https://github.com/your-org/q-pot/stargazers
+[issues-shield]: https://img.shields.io/github/issues/your-org/q-pot.svg?style=for-the-badge
+[issues-url]: https://github.com/your-org/q-pot/issues
+[license-shield]: https://img.shields.io/github/license/your-org/q-pot.svg?style=for-the-badge
+[license-url]: https://github.com/your-org/q-pot/blob/main/LICENSE
