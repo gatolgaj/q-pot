@@ -15,7 +15,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/your-org/q-pot">
-    <img src="images/logo.png" alt="Q-pot Logo" width="80" height="80">
+    <img src="images/logo.jpg" alt="Q-pot Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Q-pot (FinCoach)</h3>
@@ -54,7 +54,7 @@
 ## About The Project
 
 Q-pot (FinCoach) is an AI-powered chat application that acts as your
-personal financial advisor. It connects OpenAI’s GPT-4o with mock Bunq-style
+personal financial advisor. It connects OpenAI's GPT-4o with mock Bunq-style
 tools (accounts, transactions, mortgage, investments, etc.) via an MCP
 server—plus a DuckDuckGo search tool for external facts. The UI is a
 simple scrollable chat (vanilla JS + FontAwesome), and everything ships
@@ -93,7 +93,7 @@ inside one Docker image you can deploy anywhere.
    cd q-pot
    ```
 
-2. **Create & populate your `.env`**
+2. **Create & populate your `.env**
 
    ```sh
    cp .env.example .env
@@ -122,8 +122,8 @@ inside one Docker image you can deploy anywhere.
 
 ## Usage
 
-- Type questions like “Help me budget for Japan” or
-  “Show my investment portfolio performance.”  
+- Type questions like "Help me budget for Japan" or
+  "Show my investment portfolio performance."  
 - Use the Quick Actions or Conversation Starters to trigger common prompts.  
 - The assistant will call the right tools (MCP endpoints) under the hood.
 
